@@ -11,22 +11,23 @@ import About from "./pages/about";
 import Contact from "./pages/contact";
 import Blog from "./pages/blog";
 import PortfolioDetail from "./portfolio/portfolio-detail";
+import Auth from "./pages/auth";
 import NoMatch from "./pages/no-match";
 
 
 export default class App extends Component {
   render() {
     return (
-      <div className='app'>
+      <div className='container'>
 
         <Router>
           <div>
-          <h1>This is something</h1>
             <NavigationContainer /> 
 
             <Switch>
               <Route exact path = "/" component = {Home}/>
               <Route path = "/about-me" component = {About}/>
+              <Route path = "/auth" component = {Auth}/>
               <Route path = "/contact" component = {Contact}/>
               <Route path = "/blog" component = {Blog}/>
               <Route path = "/portfolio/:slug" component = {PortfolioDetail}/>

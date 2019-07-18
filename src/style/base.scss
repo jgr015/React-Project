@@ -3,3 +3,8 @@ body {
     margin: 0px;
     font-family: 'Charm', cursive;
 }
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr;
+}

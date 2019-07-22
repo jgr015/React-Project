@@ -19,11 +19,13 @@ export default class Login extends Component {
         this.setState({
             [event.target.name]: event.target.value,
             errorText: ""
-        })
+        });
     }
 
     handleSubmit(event){
-        axios.post("https://api.devcamp.space/sessions",
+        axios
+        .post(
+            "https://api.devcamp.space/sessions",
         {
             client: {
                 email: this.state.email,
@@ -31,7 +33,8 @@ export default class Login extends Component {
             }
         },
         {withCredentials: true}
-        ).then(response => {
+        )
+        .then(response => {
             if (response.data.status === "created"){
                 this.props.handleSuccessfulAuth();
             } else{
@@ -40,7 +43,8 @@ export default class Login extends Component {
                 });
                 this.props.handleUnsuccessfulAuth();
             }
-        }).catch(error => {
+        })
+        .catch(error => {
             this.setState({
                 errorText: "A Wild Error Appears"
             });

@@ -58,10 +58,6 @@ export default class App extends Component {
       const loggedIn = response.data.logged_in;
       const loggedInStatus = this.state.loggedInStatus;
 
-      // if loggedIn and status LOGGED_IN => return data
-      // if loggedIn status NOT_LOGGED_IN => update state
-      // if not loggedIn status Logged_In => update state; log out
-
       if (loggedIn && loggedInStatus === "LOGGED_IN"){
         return loggedIn;
       } else if (loggedIn && loggedInStatus === "NOT_LOGGED_IN"){
@@ -84,7 +80,10 @@ export default class App extends Component {
   
   authorizedPages(){
     return[
-      <Route path = "/portfolio-manager" component = {PortfolioManager}/>
+      <Route key = "portfolio-manager"
+      path = "/portfolio-manager" 
+      component = {PortfolioManager}
+      />
     ];
   }
 

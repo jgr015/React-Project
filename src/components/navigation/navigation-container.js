@@ -51,11 +51,12 @@ import {NavLink} from "react-router-dom";
                             Contact
                         </NavLink>
                     </div>
-                </div>
 
                 {props.loggedInStatus === "LOGGED_IN" ?   (
                     dynamicLink("/portfolio-mananger", "Portfolio Manager")
                  ) :null}
+                </div>
+
                 <div>
                     Joshua Grover
                     {props.loggedInStatus === "LOGGED_IN" ? (

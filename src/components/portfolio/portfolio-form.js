@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import Axios from "axios";
+import axios from "axios";
+import DropzoneComponent from "react-dropzone-component";
+
+import "../../../node_modules/react-dropzone-component/styles/filepicker.css";
+import "../../../node_modules/dropzone/dist/min/dropzone.min.css";
 
 export default class PortfolioForm extends Component{
     constructor(props){
@@ -17,22 +21,29 @@ export default class PortfolioForm extends Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.componentConfig = this.componentConfig.bind(this);
+        this.djsConfig = this.djsConfig.bind(this);
     }
 
-    handleSubmit(event){
-        Axios.post("https://joshuagrover.devcamp.space/portfolio/portfolio_items",
-        this.buildForm(), 
-        {withCredentials: true}
-        ).then (response => {
-            console.log("response", response)
-        }).catch(error => {
-            console.log("portfolio form handle submit error", error);
-        })
 
-        this.buildForm();
-        event.preventDefault();
+
+
+
+    componentConfig(){
+        return{
+            iconFiletype: [".jpg", ".png"],
+            showFiletypeIcon: true,
+            postUrl: "https://httpbin.org/post"
+        };
     }
 
+    djsConfig() {
+        return{
+            addRemoveLinks: true,
+            maxFiles: 1
+        }
+    }
+    
     buildForm(){
         let formData = new FormData();
 
@@ -49,6 +60,21 @@ export default class PortfolioForm extends Component{
         this.setState({
             [event.target.name]: event.target.value
         })
+    }
+
+    handleSubmit(event){
+        axios.post("https://joshuagrover.devcamp.space/portfolio/portfolio_items",
+        this.buildForm(), 
+        {withCredentials: true}
+        ).then (response => {
+            this.props.handleSuccessfulFormSubmission(response.data.portfolio_item);
+            console.log("response", response)
+        }).catch(error => {
+            console.log("portfolio form handle submit error", error);
+        })
+
+        this.buildForm();
+        event.preventDefault();
     }
     render(){
         return(
@@ -87,13 +113,14 @@ export default class PortfolioForm extends Component{
                             value = {this.state.category}
                             onChange = {this.handleChange}
                             >
+                            <option value = ""> </option>
                             <option value = ":)">:)</option>
                             <option value = ":l">:l</option>
                             <option value = ":(">:(</option>
                         </select>
                     </div>
                     <div>
-                    <input
+                    <textarea
                         type= "text"
                         name = "description"
                         placeholder = "Description"
@@ -101,6 +128,14 @@ export default class PortfolioForm extends Component{
                         onChange = {this.handleChange}
                         />
                     </div>
+
+                    <div className = "image-uploaders">
+                        <DropzoneComponent
+                        config={this.componentConfig}
+                        djsConfig={this.djsConfig}
+                        />
+                    </div>
+
                     <div>
                         <button type = "submit">Save</button>
                     </div>

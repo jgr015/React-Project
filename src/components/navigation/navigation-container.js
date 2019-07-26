@@ -53,7 +53,7 @@ import {NavLink} from "react-router-dom";
                     </div>
 
                 {props.loggedInStatus === "LOGGED_IN" ?   (
-                    dynamicLink("/portfolio-mananger", "Portfolio Manager")
+                    dynamicLink("/portfolio-manager", "Portfolio Manager")
                  ) :null}
                 </div>
 

@@ -7,7 +7,8 @@ import {
   faTrash, 
   faSignOutAlt, 
   faEdit,
-  faSpinner
+  faSpinner,
+  faPlusCircle,
 } from "@fortawesome/free-solid-svg-icons"
 
 import NavigationContainer from "./navigation/navigation-container";
@@ -25,7 +26,8 @@ library.add(
   faTrash, 
   faEdit, 
   faSignOutAlt, 
-  faSpinner
+  faSpinner,
+  faPlusCircle,
   );
 
 export default class App extends Component {
@@ -125,7 +127,13 @@ export default class App extends Component {
 
               <Route path="/about-me" component={About} />
               <Route path="/contact" component={Contact} />
-              <Route path="/blog" component={Blog} />
+
+              <Route path="/blog" 
+              render = {props => (
+                <Blog {...props} loggedInStatus = {this.state.loggedInStatus} />
+              )}
+              />
+
               <Route path = "/b/:slug" component = {BlogDetail} />
               {this.state.loggedInStatus === "LOGGED_IN" ? (
                 this.authorizedPages()
